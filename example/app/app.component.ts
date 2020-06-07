@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {GooglePlaceDirective} from "../../src/ngx-google-places-autocomplete.directive";
+import {GooglePlaceDirective} from "../../src/ngx-google-place-autocomplete.directive";
 import {ComponentRestrictions} from "../../src/objects/options/componentRestrictions";
 import {Address} from "../../src/objects/address";
 import {AddressComponent} from "../../src/objects/addressComponent";

@@ -1,39 +1,45 @@
 {
-  "name": "ngx-google-places-autocomplete",
+  "name": "@factotumcorp/ngx-google-place-autocomplete",
   "version": "2.0.4",
   "scripts": {
     "start": "tsc -p example && tsc -p src && concurrently \"tsc -p example -w\" \"tsc -p src -w\" \"lite-server --config sync-bs-config.json\" ",
     "yarn": "yarn",
     "build": "yarn run clean && ngc -p src/tsconfig.webpack.json && rollup -c rollup.config.js",
-    "clean": "yarn run rimraf -- compiled && yarn run rimraf -- dist && yarn run rimraf -- github",
-    "github:release" : "yarn run bestzip build.zip ./dist/* && node publish_release_github.js"
+    "clean": "yarn run rimraf compiled && yarn run rimraf dist && yarn run rimraf github"
   },
   "license": "MIT",
-  "typings": "ngx-google-places-autocomplete.d.ts",
-  "main": "bundles/ngx-google-places-autocomplete.umd.js",
+  "typings": "ngx-google-place-autocomplete.d.ts",
+  "main": "bundles/ngx-google-place-autocomplete.umd.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/skynet2/ngx-google-places-autocomplete"
+    "url": "git+https://github.com/factotumcorp/ngx-google-place-autocomplete"
   },
   "bugs": {
-    "url": "https://github.com/skynet2/ngx-google-places-autocomplete/issues"
+    "url": "https://github.com/factotumcorp/ngx-google-place-autocomplete/issues"
   },
-  "homepage": "https://github.com/skynet2/ngx-google-places-autocomplete",
+  "homepage": "https://github.com/factotumcorp/ngx-google-place-autocomplete",
   "keywords": [
     "autocomplete",
     "typescript",
-    "google places",
-    "angular 5",
-    "angular 6",
+    "google place",
+    "angular 9",
+    "angular 8",
     "angular 7",
-    "angular 2",
+    "angular 6",
+    "angular 5",
     "angular 4",
+    "angular 3",
+    "angular 2",
     "angular"
   ],
   "contributors": [
     {
       "name": "Stas Dmytryshyn",
       "url": "https://github.com/skynet2/ngx-google-places-autocomplete"
+    },
+    {
+      "name": "FactotumCorp",
+      "url": "https://github.com/factotumcorp"
     }
   ],
   "peerDependencies": {
@@ -41,26 +47,51 @@
   },
   "devDependencies": {
     "@angular/common": "4.0.0",
-    "@angular/core": "4.0.0",
     "@angular/compiler": "4.0.0",
     "@angular/compiler-cli": "4.0.0",
+    "@angular/core": "4.0.0",
     "@angular/platform-browser": "4.0.0",
     "@angular/platform-browser-dynamic": "4.0.0",
-    "systemjs": "0.19.40",
-    "core-js": "^2.4.1",
-    "rxjs": "^5.5.3",
-    "zone.js": "^0.8.4",
-    "@types/node": "7.0.5",
-    "typescript": "2.4.2",
-    "concurrently": "^3.5.1",
-    "lite-server": "^2.3.0",
-    "element-closest": "^2.0.2",
-    "webpack": "^3.9.1",
-    "rimraf": "^2.6.2",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "@ngtools/webpack": "^1.8.5",
+    "@semantic-release/changelog": "^3.0.4",
+    "@semantic-release/commit-analyzer": "^6.3.0",
+    "@semantic-release/exec": "^3.3.7",
+    "@semantic-release/git": "^7.0.16",
+    "@semantic-release/npm": "^5.2.0",
+    "@semantic-release/release-notes-generator": "^7.3.0",
+    "@types/node": "7.0.5",
+    "bestzip": "^1.1.4",
+    "concurrently": "^3.5.1",
+    "core-js": "^2.4.1",
+    "cz-conventional-changelog": "^3.0.2",
+    "element-closest": "^2.0.2",
+    "git-cz": "^3.2.1",
+    "lite-server": "^2.3.0",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
+    "publish-release": "^1.4.0",
+    "rimraf": "^2.6.2",
     "rollup": "0.41.4",
     "rollup-plugin-copy": "0.2.3",
-    "bestzip" : "^1.1.4",
-    "publish-release" : "^1.4.0"
+    "rxjs": "^5.5.3",
+    "semantic-release": "^15.0.0",
+    "systemjs": "0.19.40",
+    "typescript": "2.4.2",
+    "webpack": "^3.9.1",
+    "zone.js": "^0.8.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/git-cz",
+      "defaultType": "fix"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }

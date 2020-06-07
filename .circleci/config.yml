@@ -1,0 +1,62 @@
+version: 2
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:12.15.0
+jobs:
+  'Build and test':
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependency-cache-{{ checksum "yarn.lock" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependency-cache-
+      - run:
+          name: Install dependencies
+          command: yarn install
+      - save_cache:
+          key: v1-dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+      - run:
+          name: Building Lib
+          command: yarn run build
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
+      - run:
+          command: |
+            mkdir -p /tmp/logs
+            mv *.log /tmp/logs
+          when: on_fail
+      - store_artifacts:
+          path: /tmp/logs
+  'Release':
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Authenticate with registry
+          command: echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" >> ~/repo/.npmrc
+      - run:
+          name: Semantic Release
+          command: npx semantic-release
+      # checkout, restore_cache, run: yarn install, save_cache, etc.
+      # Run semantic-release after all the above is set.
+workflows:
+  version: 2
+  'Build, test and versioning':
+    jobs:
+      - 'Build and test':
+          filters:
+            branches:
+              only: master
+      - 'Release':
+          requires:
+            - 'Build and test'
+          filters:
+            branches:
+              only: master

@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { GooglePlaceDirective } from "./ngx-google-places-autocomplete.directive";
+import { GooglePlaceDirective } from "./ngx-google-place-autocomplete.directive";
 
 @NgModule({
     declarations: [GooglePlaceDirective],
